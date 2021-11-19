@@ -20,7 +20,13 @@
 <% if (user.equals("andres") && password.equals("12345")) {%>
 <body>
 <%
-    business.listProduct(response.getWriter());
+    try {
+        Class.forName("com.mysql.jdbc.Driver");
+    } catch (ClassNotFoundException e) {
+        e.printStackTrace();
+    }
+    PrintWriter printer = response.getWriter();
+    business.listProduct(printer);
 %>
 <h1>Esto es el catalogo</h1>
 </body>

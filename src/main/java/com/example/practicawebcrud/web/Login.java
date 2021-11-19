@@ -25,7 +25,7 @@ public class Login extends HttpServlet {
             request.getRequestDispatcher("Catalogo.jsp").forward(request,response);
         } else {
             request.setAttribute("mis","Usuario selecionado incorrecto");
-            request.getRequestDispatcher("login.jsp").forward(request,response);
+            request.getRequestDispatcher("index.jsp").forward(request,response);
         }
     }
 }
