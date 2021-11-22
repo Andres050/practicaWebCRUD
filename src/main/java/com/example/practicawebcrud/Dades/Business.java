@@ -20,6 +20,9 @@ public class Business {
         }
         printWriter.println("</div>");
     }
+    public List<Product> list(){
+        return productDAO.readAll();
+    }
     public void insert(Product product) {
         productDAO.insert(product);
     }

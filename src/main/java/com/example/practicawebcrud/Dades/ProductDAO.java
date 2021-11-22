@@ -12,6 +12,7 @@ public class ProductDAO {
 
     String login = "andres5";
     String password = "andres12345A_";
+    String database = "andres_database";
     String table = "productos";
 
     // CASA ANDRES
@@ -21,9 +22,14 @@ public class ProductDAO {
     String table = "productos";
      */
 
-    String url = "jdbc:mysql://localhost:3306/"+table+"?allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    String url = "jdbc:mysql://localhost:3306/"+database+"?allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC";
 
     public Connection connection() throws SQLException {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         return DriverManager.getConnection(url, login, password);
     }
 
