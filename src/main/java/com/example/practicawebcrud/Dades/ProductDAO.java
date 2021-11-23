@@ -45,7 +45,7 @@ public class ProductDAO {
                 insertProduct.setString(1, product.getNamePro());
                 insertProduct.setString(2,product.getDescriptPro());
                 insertProduct.setDouble(3, product.getPricePro());
-                insertProduct.executeQuery();
+                insertProduct.executeUpdate();
                 conn.close();
             }
         } catch(SQLException ex) {

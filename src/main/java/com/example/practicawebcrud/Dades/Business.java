@@ -29,32 +29,25 @@ public class Business {
     public void restartCataleg() {
         productDAO.deleteAllINFOonTABLE();
     }
-    public void searchProduct(String name,PrintWriter printWriter){
+    public Product searchProduct(String name){
         Product product1 = productDAO.readByName(name);
         if (product1!=null) {
-            printWriter.println("<h1 style='text-align:center'>PRODUCT</h1>");
-            printWriter.println(Arrays.toString(new Object[]{product1.getIdPro(), product1.getNamePro(), product1.getDescriptPro(), product1.getPricePro()}));
+            return new Product(product1.getIdPro(), product1.getNamePro(), product1.getDescriptPro(), product1.getPricePro());
         } else {
-            printWriter.println("<p>Product dont finded!!!</p>");
+            return new Product();
         }
     }
-    public void updateProduct(int id, PrintWriter printWriter, Product product){
-        if (Objects.equals(product.getNamePro(), "Vacio") && product.getIdPro() == 0) {
-            printWriter.println("DONT EXIST updateProduct");
-        } else {
-            printWriter.println(Arrays.toString(new Object[]{product.getIdPro(), product.getNamePro(), product.getDescriptPro(), product.getPricePro()}));
-            printWriter.println("Product going to be DELETED....");
-        }
+    public Product updateProduct(int id, Product product){
         if (product.getNamePro() != null || product.getDescriptPro() != null) {
             productDAO.updateByID(product, id);
+            return new Product(product.getIdPro(), product.getNamePro(), product.getDescriptPro(), product.getPricePro());
         } else {
-            printWriter.println("Product doesnt defined!!!");
+            return new Product();
         }
     }
 
-    public void deleteByID (int id, PrintWriter printWriter){
-        printWriter.println(productDAO.readByID(id));
-        printWriter.println(id);
+    public Product deleteByID (int id){
         productDAO.deleteByID(id);
+        return productDAO.readByID(id);
     }
 }
