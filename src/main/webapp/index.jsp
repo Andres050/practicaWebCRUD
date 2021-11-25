@@ -11,6 +11,9 @@
     <title>Login</title>
 </head>
 <body>
+
+<!-- Formulario con el contenido de user, password -->
+<!-- Action Login = Quando haga click al input type submit lanzara la informacion por post a la classe Login sitiada en /com.example.practicawebcrud.web.Login -->
 <form action="Login" method="post">
     <table>
         <tr>
@@ -24,11 +27,5 @@
     </table>
     <input type="submit" />
 </form>
-<% String message = (String) request.getAttribute("mis"); %>
-<% if (message != null) {%>
-<div>
-    <p><%=message%></p>
-</div>
-<%} %>
 </body>
 </html>
