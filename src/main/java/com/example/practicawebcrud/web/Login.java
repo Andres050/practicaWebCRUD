@@ -7,6 +7,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.HttpCookie;
 
 @WebServlet(name = "Login", value = "/Login")
 public class Login extends HttpServlet {
@@ -17,14 +18,13 @@ public class Login extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String user = ""; String password = "";
+        String user = "";
         Business business = new Business();
+        HttpSession misession = request.getSession(true);
         user = request.getParameter("user");
-        password = request.getParameter("password");
 
-        if (user.equals("andres") && password.equals("12345")) {
-            request.setAttribute("user",user);
-            request.setAttribute("password",password);
+        if (user!=null) {
+            misession.setAttribute("user",user);
             request.setAttribute("llista",business.list());
             request.getRequestDispatcher("Catalogo.jsp").forward(request,response);
         } else {

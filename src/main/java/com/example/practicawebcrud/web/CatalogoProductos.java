@@ -17,32 +17,38 @@ public class CatalogoProductos extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Business business = new Business();
+        HttpSession misession = request.getSession(true);
+        String user = (String) misession.getAttribute("user");
 
-        String action = request.getParameter("action");
-        request.setAttribute("message",action);
-        String id = request.getParameter("id");
-        request.setAttribute("singleProduct",id);
+        if (user!=null) {
+            String action = request.getParameter("action");
+            request.setAttribute("message", action);
+            String id = request.getParameter("id");
+            request.setAttribute("singleProduct", id);
 
-        switch (action) {
-            case "edit":
-                request.setAttribute("id",id);
-                request.setAttribute("action",action);
-                request.getRequestDispatcher("EditProduct.jsp").forward(request,response);
-                break;
-            case "delete":
-                business.deleteByID(Integer.parseInt(id));
-                break;
-            case "add":
-                request.setAttribute("action",action);
-                request.getRequestDispatcher("addProduct.jsp").forward(request,response);
-                break;
-            case "removeAll":
-                business.restartCataleg();
-                break;
+            switch (action) {
+                case "edit":
+                    request.setAttribute("id", id);
+                    request.setAttribute("action", action);
+                    request.getRequestDispatcher("EditProduct.jsp").forward(request, response);
+                    break;
+                case "delete":
+                    business.deleteByID(Integer.parseInt(id));
+                    break;
+                case "add":
+                    request.setAttribute("action", action);
+                    request.getRequestDispatcher("addProduct.jsp").forward(request, response);
+                    break;
+                case "removeAll":
+                    business.restartCataleg();
+                    break;
+            }
+
+            request.setAttribute("llista", business.list());
+            request.getRequestDispatcher("Catalogo.jsp").forward(request, response);
+        } else {
+            request.getRequestDispatcher("index.jsp").forward(request, response);
         }
-
-        request.setAttribute("llista",business.list());
-        request.getRequestDispatcher("Catalogo.jsp").forward(request,response);
     }
 
     @Override
