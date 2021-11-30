@@ -54,34 +54,41 @@ public class CatalogoProductos extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Business business = new Business();
-        //ADD PRODUCT
-        String idPro = null;
-        String name = null;
-        String descript = null;
-        String price = null;
-        String action = null;
+        HttpSession misession = request.getSession(true);
+        String user = (String) misession.getAttribute("user");
 
-        try {
-            idPro = request.getParameter("idPro");
-            name = request.getParameter("namePro");
-            descript = request.getParameter("descriptPro");
-            price = request.getParameter("pricePro");
-            action = (String) request.getAttribute("action");
-        } catch (Exception ignored) {
+        if (user != null) {
+            //ADD PRODUCT
+            String idPro = null;
+            String name = null;
+            String descript = null;
+            String price = null;
+            String action = null;
 
-        }
-        assert action != null;
-        assert price != null;
-        boolean is = true;
-        Product product = new Product(0,"NULL PRODUCT","THIS IS A NULL PRODUCT",0);
-        if (idPro!=null) {
-            ProductDAO productDAO = new ProductDAO();
-            productDAO.updateByID(new Product(name,descript,Double.parseDouble(price)), Integer.parseInt(idPro));
+            try {
+                idPro = request.getParameter("idPro");
+                name = request.getParameter("namePro");
+                descript = request.getParameter("descriptPro");
+                price = request.getParameter("pricePro");
+                action = (String) request.getAttribute("action");
+            } catch (Exception ignored) {
+
+            }
+            assert action != null;
+            assert price != null;
+            boolean is = true;
+            Product product = new Product(0, "NULL PRODUCT", "THIS IS A NULL PRODUCT", 0);
+            if (idPro != null) {
+                ProductDAO productDAO = new ProductDAO();
+                productDAO.updateByID(new Product(name, descript, Double.parseDouble(price)), Integer.parseInt(idPro));
+            } else {
+                business.insert(new Product(name, descript, Double.parseDouble(price)));
+            }
+            request.setAttribute("message", product);
+            request.setAttribute("llista", business.list());
+            request.getRequestDispatcher("Catalogo.jsp").forward(request, response);
         } else {
-            business.insert(new Product(name,descript,Double.parseDouble(price)));
+            request.getRequestDispatcher("index.jsp").forward(request, response);
         }
-        request.setAttribute("message",product);
-        request.setAttribute("llista",business.list());
-        request.getRequestDispatcher("Catalogo.jsp").forward(request,response);
     }
 }
