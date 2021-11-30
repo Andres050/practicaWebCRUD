@@ -27,6 +27,7 @@
         }
     </style>
 </head>
+<!-- GET ATRIBUTE LISTA -->
 <% List<Product> list = (List<Product>) request.getAttribute("llista"); %>
 <% String singleProduct = (String) request.getAttribute("SingleProduct"); %>
 
@@ -43,20 +44,26 @@
     </tr>
     </thead>
     <tbody>
+    <!-- ASIN ES COMO SE HACE UN FOR -->
         <% for (int i = 0; i < list.size(); i++){%>
         <tr>
-        <th scope="row"><%=list.get(i).getIdPro()%></th>
+            <!-- ASIN ES COMO SE USE EL %= UN FOR-->
+            <th scope="row"><%=list.get(i).getIdPro()%></th>
         <td><%=list.get(i).getNamePro()%></td>
         <td><%=list.get(i).getDescriptPro()%></td>
         <td><%=list.get(i).getPricePro()%></td>
+            <!-- Action y el id para hacer la action con la id, ademas lo paso por get ya que esta en el enlaze-->
             <td><a href="CatalogoProductos?action=edit&id=<%=list.get(i).getIdPro()%>" type="submit" class="btn btn-primary mb-2">EDIT</a></td>
             <td><a href="CatalogoProductos?action=delete&id=<%=list.get(i).getIdPro()%>" type="submit" class="btn btn-primary mb-2">DELETE</a></td>
         </tr>
         <%}%>
     </tbody>
 </table>
+<!-- Action y el id para hacer la action con la id, ademas lo paso por get ya que esta en el enlaze-->
 <a href="CatalogoProductos?action=add&id=-1" type="submit" class="btn btn-success mb-2">ADD NEW ITEM</a>
 <a href="CatalogoProductos?action=removeAll&id=-1" type="submit" class="btn btn-danger mb-2">REMOVE ALL ITEMS</a>
+
+<!-- Si hay algun fallo se mostrara aqui-->
 <div class="alert alert-success" role="alert">
     <%=singleProduct%>
 </div>
