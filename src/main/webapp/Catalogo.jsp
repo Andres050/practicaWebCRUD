@@ -28,7 +28,8 @@
     </style>
 </head>
 <!-- GET ATRIBUTE LISTA -->
-<% List<Product> list = (List<Product>) request.getAttribute("llista"); %>
+<% Business business = new Business();%>
+<% List<Product> list = business.list(); %>
 <% String singleProduct = (String) request.getAttribute("SingleProduct"); %>
 
 <body>
@@ -36,6 +37,7 @@
 <table class="table">
     <thead class="thead-dark">
     <tr>
+        <th scope="col">#</th>
         <th scope="col">IdPro</th>
         <th scope="col">namePro</th>
         <th scope="col">descriptPro</th>
@@ -48,7 +50,8 @@
         <% for (int i = 0; i < list.size(); i++){%>
         <tr>
             <!-- ASIN ES COMO SE USE EL %= UN FOR-->
-            <th scope="row"><%=list.get(i).getIdPro()%></th>
+            <th scope="row"><a href="CatalogoProductos?action=view&id=<%=list.get(i).getIdPro()%>" type="submit" class="btn btn-secondary mb-2">VIEW</a></th>
+            <th><%=list.get(i).getIdPro()%></th>
         <td><%=list.get(i).getNamePro()%></td>
         <td><%=list.get(i).getDescriptPro()%></td>
         <td><%=list.get(i).getPricePro()%></td>

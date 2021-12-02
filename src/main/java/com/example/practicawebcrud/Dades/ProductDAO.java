@@ -78,10 +78,9 @@ public class ProductDAO {
 
     public Product readByID(int id){
         Connection connection = null;
-
+        System.out.println(id);
         try {
             connection = connection();
-
             if (connection != null) {
                 Statement sta = connection.createStatement();
                 ResultSet result = sta.executeQuery("SELECT * FROM "+table+" where idPro=\""+id+"\"");
@@ -156,7 +155,26 @@ public class ProductDAO {
 
             if (conn != null) {
                 Statement sta = conn.createStatement();
-                sta.executeUpdate("DELETE FROM "+table);
+                sta.executeUpdate("DROP TABLE "+table);
+                createTableDDBB();
+                conn.close();
+            }
+        } catch(SQLException ex) {
+            System.out.println(ex);
+        }
+    }
+    public void createTableDDBB(){
+        try {
+            Connection conn = connection();
+
+            if (conn != null) {
+                Statement sta = conn.createStatement();
+                sta.executeUpdate("CREATE TABLE "+table+"(" +
+                        "idPro integer auto_increment primary key," +
+                        "namePro VARCHAR(20)," +
+                        "descriptPro VARCHAR(100)," +
+                        "pricePro double"
+                        +")");
                 conn.close();
             }
         } catch(SQLException ex) {

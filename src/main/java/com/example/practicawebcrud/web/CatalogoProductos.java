@@ -39,12 +39,16 @@ public class CatalogoProductos extends HttpServlet {
                     request.setAttribute("action", action);
                     request.getRequestDispatcher("addProduct.jsp").forward(request, response);
                     break;
+                case "view":
+                    request.setAttribute("viewProduct", business.searchProductID(Integer.parseInt(id)));
+                    request.setAttribute("action", action);
+                    request.getRequestDispatcher("view.jsp").forward(request,response);
+                    break;
                 case "removeAll":
                     business.restartCataleg();
                     break;
             }
 
-            request.setAttribute("llista", business.list());
             request.getRequestDispatcher("Catalogo.jsp").forward(request, response);
         } else {
             request.getRequestDispatcher("index.jsp").forward(request, response);

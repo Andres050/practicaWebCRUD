@@ -25,7 +25,6 @@ public class Login extends HttpServlet {
 
         if (user!=null) {
             misession.setAttribute("user",user);
-            request.setAttribute("llista",business.list());
             request.getRequestDispatcher("Catalogo.jsp").forward(request,response);
         } else {
             request.setAttribute("mis","Usuario selecionado incorrecto");

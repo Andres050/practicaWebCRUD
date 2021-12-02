@@ -41,10 +41,18 @@ public class Business {
 
     /* Este metodo lo que hace es mirar por el nombre insertado por parametro pasarlo a un buscador en productDAO el qual necesita
     tambien ese nombre, ya realizado eso necesitaremos guardar el producto que a encontrado, con este producto miro si ha encontrado o no y lo devulvo */
-    public Product searchProduct(String name){
+    public Product searchProductName(String name){
         Product product1 = productDAO.readByName(name);
         if (product1!=null) {
             return new Product(product1.getIdPro(), product1.getNamePro(), product1.getDescriptPro(), product1.getPricePro());
+        } else {
+            return new Product();
+        }
+    }
+    public Product searchProductID(int id){
+        Product product1 = productDAO.readByID(id);
+        if (product1!=null) {
+            return product1;
         } else {
             return new Product();
         }
