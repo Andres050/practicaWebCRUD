@@ -20,6 +20,7 @@ public class CatalogoProductos extends HttpServlet {
         HttpSession misession = request.getSession(true);
         String user = (String) misession.getAttribute("user");
 
+        /* Si no me existe el user no aparece nada y te llega a registrarte */
         if (user!=null) {
             String action = request.getParameter("action");
             request.setAttribute("message", action);
