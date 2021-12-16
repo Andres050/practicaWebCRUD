@@ -19,7 +19,6 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String user = "";
-        Business business = new Business();
         HttpSession misession = request.getSession(true);
         user = request.getParameter("user");
 
